@@ -7,6 +7,8 @@
 //
 
 #import "ViewController.h"
+#import "OTTimeProfileTool.h"
+#import "OFGetSubclassesHelper.h"
 
 @interface ViewController ()
 
@@ -14,16 +16,17 @@
 
 @implementation ViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    for (int i = 0; i < 10; i++)
+    {
+        OTTimeProfileTool *timeProfile = [[OTTimeProfileTool alloc] init];
+        [timeProfile beginFlagCPUTime];
+        NSArray *a = [OFGetSubclassesHelper getAllSubclassesOfClass:[NSObject class]];
+        [timeProfile endFlagCPUTime];
+        NSLog(@"%@", a);
+    }
 }
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 
 @end
