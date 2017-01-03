@@ -19,7 +19,18 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    for (int i = 0; i < 10; i++)
+    
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setTitle:@"Touch Screen To Test" forState:UIControlStateNormal];
+    button.frame = self.view.bounds;
+    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(test) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:button];
+}
+
+- (void)test
+{
+    for (int i = 0; i < 1; i++)
     {
         OTTimeProfileTool *timeProfile = [[OTTimeProfileTool alloc] init];
         [timeProfile beginFlagCPUTime];
