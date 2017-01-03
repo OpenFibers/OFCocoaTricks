@@ -23,7 +23,6 @@
         //这里不能使用isSubclassOfClass:，因为此方法是 NSObject 的方法。
         tempClass = class_getSuperclass(tempClass);
     }
-    
     BOOL isSubclass = (tempClass == aClass);
     return isSubclass;
 }
@@ -51,7 +50,6 @@
         }
         free(classCache);
     }
-    
     return [NSArray arrayWithArray:classArray];
 }
 
