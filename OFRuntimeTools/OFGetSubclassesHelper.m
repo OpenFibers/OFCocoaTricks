@@ -44,6 +44,7 @@
             {
                 if ([self isClass:currentClass subclassOfClass:aClass])
                 {
+                    //在获取含大量子类的父类的全部子类时，下面这行代码是CPU的性能瓶颈
                     [classArray addObject:currentClass];
                 }
             }
