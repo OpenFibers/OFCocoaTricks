@@ -9,9 +9,10 @@
 #import "ViewController.h"
 #import "OFGetSubclassesTester.h"
 #import "OFFindInstanceIvarTester.h"
+#import "OFFindViewReferenceTester.h"
 
 @interface ViewController ()
-
+@property (nonatomic, strong) UIButton *button;
 @end
 
 @implementation ViewController
@@ -26,12 +27,14 @@
     [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [button addTarget:self action:@selector(test) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:button];
+    self.button = button;
 }
 
 - (void)test
 {
 //    [OFGetSubclassesTester test];
-    [OFFindInstanceIvarTester test];
+//    [OFFindInstanceIvarTester test];
+    [OFFindViewReferenceTester testForView:self.button];
 }
 
 @end
