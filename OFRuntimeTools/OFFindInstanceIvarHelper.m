@@ -42,6 +42,15 @@
             else
             {
                 id value = [OFRuntimeUltilities valueForIvar:var onObject:superObject];
+                if ([object isKindOfClass:[UIView class]] && [value isKindOfClass:[UIView class]])
+                {
+                    UIView *viewValue = value;
+                    if ([((UIView *)object) isDescendantOfView:viewValue])
+                    {
+                        NSString *result = [NSString stringWithFormat:@"SUBVIEW_OF %@ %s %s", [superObject class], ivar_getName(var), type];
+                        [resultArray addObject:result];
+                    }
+                }
                 if ([value respondsToSelector:@selector(objectEnumerator)])
                 {
                     NSEnumerator *enumerator = [value objectEnumerator];
