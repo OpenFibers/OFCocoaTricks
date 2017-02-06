@@ -10,6 +10,7 @@
 		4236FF081E4898C60069F87E /* OFFindInstanceIvarHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4236FF071E4898C60069F87E /* OFFindInstanceIvarHelper.m */; };
 		4236FF0C1E48A0F60069F87E /* OFGetSubclassesTester.m in Sources */ = {isa = PBXBuildFile; fileRef = 4236FF0B1E48A0F60069F87E /* OFGetSubclassesTester.m */; };
 		4236FF0F1E48A1460069F87E /* OFFindInstanceIvarTester.m in Sources */ = {isa = PBXBuildFile; fileRef = 4236FF0E1E48A1460069F87E /* OFFindInstanceIvarTester.m */; };
+		4236FF121E48B0E30069F87E /* OFRuntimeUltilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 4236FF111E48B0E30069F87E /* OFRuntimeUltilities.m */; };
 		42671E021E19849C00380C04 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 42671E011E19849C00380C04 /* main.m */; };
 		42671E051E19849C00380C04 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 42671E041E19849C00380C04 /* AppDelegate.m */; };
 		42671E081E19849C00380C04 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42671E071E19849C00380C04 /* ViewController.m */; };
@@ -27,6 +28,8 @@
 		4236FF0B1E48A0F60069F87E /* OFGetSubclassesTester.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OFGetSubclassesTester.m; sourceTree = "<group>"; };
 		4236FF0D1E48A1460069F87E /* OFFindInstanceIvarTester.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OFFindInstanceIvarTester.h; sourceTree = "<group>"; };
 		4236FF0E1E48A1460069F87E /* OFFindInstanceIvarTester.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OFFindInstanceIvarTester.m; sourceTree = "<group>"; };
+		4236FF101E48B0E30069F87E /* OFRuntimeUltilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OFRuntimeUltilities.h; sourceTree = "<group>"; };
+		4236FF111E48B0E30069F87E /* OFRuntimeUltilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OFRuntimeUltilities.m; sourceTree = "<group>"; };
 		42671DFD1E19849C00380C04 /* OFCocoaTricks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OFCocoaTricks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		42671E011E19849C00380C04 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		42671E031E19849C00380C04 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -111,6 +114,8 @@
 		42671E171E1984FD00380C04 /* OFRuntimeTools */ = {
 			isa = PBXGroup;
 			children = (
+				4236FF101E48B0E30069F87E /* OFRuntimeUltilities.h */,
+				4236FF111E48B0E30069F87E /* OFRuntimeUltilities.m */,
 				42671E181E19851C00380C04 /* OFGetSubclassesHelper.h */,
 				42671E191E19851C00380C04 /* OFGetSubclassesHelper.m */,
 				4236FF061E4898C60069F87E /* OFFindInstanceIvarHelper.h */,
@@ -200,6 +205,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4236FF121E48B0E30069F87E /* OFRuntimeUltilities.m in Sources */,
 				42671E081E19849C00380C04 /* ViewController.m in Sources */,
 				4236FF0F1E48A1460069F87E /* OFFindInstanceIvarTester.m in Sources */,
 				42671E051E19849C00380C04 /* AppDelegate.m in Sources */,
