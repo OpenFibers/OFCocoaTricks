@@ -10,10 +10,19 @@
 #import "OFFindInstanceIvarHelper.h"
 
 @implementation OFFindInstanceIvarTester
+{
+    NSString *_a;
+    NSString *_b;
+}
 
 + (void)test
 {
-    
+    OFFindInstanceIvarTester *tester = [[OFFindInstanceIvarTester alloc] init];
+    NSString *a = [[NSString alloc] init];
+    tester->_a = a;
+    tester->_b = nil;
+    [OFFindInstanceIvarHelper IvarNamesOfObject:a inSuperObject:tester];
+    [OFFindInstanceIvarHelper IvarNamesOfObject:nil inSuperObject:tester];
 }
 
 @end
