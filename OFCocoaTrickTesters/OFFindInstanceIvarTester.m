@@ -13,6 +13,9 @@
 {
     NSString *_a;
     NSString *_b;
+    NSArray *_array;
+    NSDictionary *_dictionaryA;
+    NSDictionary *_dictionaryB;
 }
 
 + (void)test
@@ -21,8 +24,11 @@
     NSString *a = [[NSString alloc] init];
     tester->_a = a;
     tester->_b = nil;
-    [OFFindInstanceIvarHelper IvarNamesOfObject:a inSuperObject:tester];
-    [OFFindInstanceIvarHelper IvarNamesOfObject:nil inSuperObject:tester];
+    tester->_array = @[a];
+    tester->_dictionaryA = @{a : @"value"};
+    tester->_dictionaryB = @{@"key" : a};
+    NSLog(@"%@" ,[OFFindInstanceIvarHelper IvarNamesOfObject:a inSuperObject:tester]);
+    NSLog(@"%@" ,[OFFindInstanceIvarHelper IvarNamesOfObject:nil inSuperObject:tester]);
 }
 
 @end
