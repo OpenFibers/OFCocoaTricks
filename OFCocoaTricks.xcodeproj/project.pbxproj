@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4236FF081E4898C60069F87E /* OFFindInstanceIvarHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4236FF071E4898C60069F87E /* OFFindInstanceIvarHelper.m */; };
 		42671E021E19849C00380C04 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 42671E011E19849C00380C04 /* main.m */; };
 		42671E051E19849C00380C04 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 42671E041E19849C00380C04 /* AppDelegate.m */; };
 		42671E081E19849C00380C04 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42671E071E19849C00380C04 /* ViewController.m */; };
@@ -18,6 +19,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4236FF061E4898C60069F87E /* OFFindInstanceIvarHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OFFindInstanceIvarHelper.h; sourceTree = "<group>"; };
+		4236FF071E4898C60069F87E /* OFFindInstanceIvarHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OFFindInstanceIvarHelper.m; sourceTree = "<group>"; };
 		42671DFD1E19849C00380C04 /* OFCocoaTricks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OFCocoaTricks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		42671E011E19849C00380C04 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		42671E031E19849C00380C04 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -45,11 +48,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4236FF091E489BBE0069F87E /* OFCocoaTrickTesters */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = OFCocoaTrickTesters;
+			sourceTree = "<group>";
+		};
 		42671DF41E19849C00380C04 = {
 			isa = PBXGroup;
 			children = (
 				42671E1B1E199D4F00380C04 /* OTTimeProfileTool */,
 				42671E171E1984FD00380C04 /* OFRuntimeTools */,
+				4236FF091E489BBE0069F87E /* OFCocoaTrickTesters */,
 				42671DFF1E19849C00380C04 /* OFCocoaTricks */,
 				42671DFE1E19849C00380C04 /* Products */,
 			);
@@ -92,6 +103,8 @@
 			children = (
 				42671E181E19851C00380C04 /* OFGetSubclassesHelper.h */,
 				42671E191E19851C00380C04 /* OFGetSubclassesHelper.m */,
+				4236FF061E4898C60069F87E /* OFFindInstanceIvarHelper.h */,
+				4236FF071E4898C60069F87E /* OFFindInstanceIvarHelper.m */,
 			);
 			path = OFRuntimeTools;
 			sourceTree = "<group>";
@@ -179,6 +192,7 @@
 			files = (
 				42671E081E19849C00380C04 /* ViewController.m in Sources */,
 				42671E051E19849C00380C04 /* AppDelegate.m in Sources */,
+				4236FF081E4898C60069F87E /* OFFindInstanceIvarHelper.m in Sources */,
 				42671E021E19849C00380C04 /* main.m in Sources */,
 				42671E1E1E199D4F00380C04 /* OTTimeProfileTool.m in Sources */,
 				42671E1A1E19851C00380C04 /* OFGetSubclassesHelper.m in Sources */,
