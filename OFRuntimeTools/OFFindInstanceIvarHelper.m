@@ -36,7 +36,7 @@
             uintptr_t objectPointer = (uintptr_t)object;
             if (objectPointer == ivarPointer)
             {
-                NSString *result = [NSString stringWithFormat:@"EQUAL_TO %@ %s %s", [superObject class], ivar_getName(var), type];
+                NSString *result = [NSString stringWithFormat:@"EQUAL_TO %@(%lx) %s %s", [superObject class], (uintptr_t)superObject, ivar_getName(var), type];
                 [resultArray addObject:result];
             }
             else
@@ -47,7 +47,7 @@
                     UIView *viewValue = value;
                     if ([((UIView *)object) isDescendantOfView:viewValue])
                     {
-                        NSString *result = [NSString stringWithFormat:@"SUBVIEW_OF %@ %s %s", [superObject class], ivar_getName(var), type];
+                        NSString *result = [NSString stringWithFormat:@"SUBVIEW_OF %@(%lx) %s %s", [superObject class], (uintptr_t)superObject, ivar_getName(var), type];
                         [resultArray addObject:result];
                     }
                 }
@@ -61,7 +61,7 @@
                         {
                             if (element == object)
                             {
-                                NSString *result = [NSString stringWithFormat:@"VALUE_OF %@ %s %s", [superObject class], ivar_getName(var), type];
+                                NSString *result = [NSString stringWithFormat:@"VALUE_OF %@(%lx) %s %s", [superObject class], (uintptr_t)superObject, ivar_getName(var), type];
                                 [resultArray addObject:result];
                             }
                         }
@@ -77,7 +77,7 @@
                         {
                             if (element == object)
                             {
-                                NSString *result = [NSString stringWithFormat:@"KEY_OF %@ %s %s", [superObject class], ivar_getName(var), type];
+                                NSString *result = [NSString stringWithFormat:@"KEY_OF %@(%lx) %s %s", [superObject class], (uintptr_t)superObject, ivar_getName(var), type];
                                 [resultArray addObject:result];
                             }
                         }
