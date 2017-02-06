@@ -36,7 +36,7 @@
             uintptr_t objectPointer = (uintptr_t)object;
             if (objectPointer == ivarPointer)
             {
-                NSString *result = [NSString stringWithFormat:@"EQUAL_TO %s %s", ivar_getName(var), type];
+                NSString *result = [NSString stringWithFormat:@"EQUAL_TO %@ %s %s", [superObject class], ivar_getName(var), type];
                 [resultArray addObject:result];
             }
             else
@@ -52,7 +52,7 @@
                         {
                             if (element == object)
                             {
-                                NSString *result = [NSString stringWithFormat:@"VALUE_OF %s %s", ivar_getName(var), type];
+                                NSString *result = [NSString stringWithFormat:@"VALUE_OF %@ %s %s", [superObject class], ivar_getName(var), type];
                                 [resultArray addObject:result];
                             }
                         }
@@ -68,7 +68,7 @@
                         {
                             if (element == object)
                             {
-                                NSString *result = [NSString stringWithFormat:@"KEY_OF %s %s", ivar_getName(var), type];
+                                NSString *result = [NSString stringWithFormat:@"KEY_OF %@ %s %s", [superObject class], ivar_getName(var), type];
                                 [resultArray addObject:result];
                             }
                         }
