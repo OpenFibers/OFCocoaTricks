@@ -7,8 +7,8 @@
 //
 
 #import "ViewController.h"
-#import "OTTimeProfileTool.h"
-#import "OFGetSubclassesHelper.h"
+#import "OFGetSubclassesTester.h"
+#import "OFFindInstanceIvarTester.h"
 
 @interface ViewController ()
 
@@ -30,14 +30,8 @@
 
 - (void)test
 {
-    for (int i = 0; i < 1; i++)
-    {
-        OTTimeProfileTool *timeProfile = [[OTTimeProfileTool alloc] init];
-        [timeProfile beginFlagCPUTime];
-        NSArray *a = [OFGetSubclassesHelper getAllSubclassesOfClass:[NSObject class]];
-        [timeProfile endFlagCPUTime];
-        NSLog(@"%@", a);
-    }
+//    [OFGetSubclassesTester test];
+    [OFFindInstanceIvarTester test];
 }
 
 @end
