@@ -15,8 +15,8 @@
 {
     NSMutableArray *result = [NSMutableArray array];
     
-    UIResponder *responder = nil;
-    while ((responder = [view nextResponder]))
+    UIResponder *responder = view;
+    while ((responder = [responder nextResponder]))
     {
         NSArray *singleResult = [OFFindInstanceIvarHelper IvarNamesOfObject:view inSuperObject:responder];
         if (singleResult)
