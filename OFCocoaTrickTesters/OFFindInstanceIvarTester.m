@@ -9,6 +9,10 @@
 #import "OFFindInstanceIvarTester.h"
 #import "OFFindInstanceIvarHelper.h"
 
+@interface OFFindInstanceIvarTester ()
+@property (nonatomic, strong) NSString *property;
+@end
+
 @implementation OFFindInstanceIvarTester
 {
     NSString *_a;
@@ -22,6 +26,7 @@
 {
     OFFindInstanceIvarTester *tester = [[OFFindInstanceIvarTester alloc] init];
     NSString *a = [[NSString alloc] init];
+    tester.property = a;
     tester->_a = a;
     tester->_b = nil;
     tester->_array = @[a];
