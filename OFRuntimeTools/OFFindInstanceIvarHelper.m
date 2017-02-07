@@ -45,9 +45,14 @@
                 if ([object isKindOfClass:[UIView class]] && [value isKindOfClass:[UIView class]])
                 {
                     UIView *viewValue = value;
-                    if ([((UIView *)object) isDescendantOfView:viewValue])
+                    if ([viewValue.subviews containsObject:(UIView *)object])
                     {
                         NSString *result = [NSString stringWithFormat:@"SUBVIEW_OF %@(%lx) %s %s", [superObject class], (uintptr_t)superObject, ivar_getName(var), type];
+                        [resultArray addObject:result];
+                    }
+                    else if ([((UIView *)object) isDescendantOfView:viewValue])
+                    {
+                        NSString *result = [NSString stringWithFormat:@"DESCENDANTVIEW_OF %@(%lx) %s %s", [superObject class], (uintptr_t)superObject, ivar_getName(var), type];
                         [resultArray addObject:result];
                     }
                 }
