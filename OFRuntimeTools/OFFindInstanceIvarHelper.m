@@ -28,13 +28,11 @@
         Ivar var = vars[i];
         const char *type = ivar_getTypeEncoding(var);
         
-        if (type[0] == '@')
+        if (type[0] == @encode(id)[0])
         {
             ptrdiff_t offset = ivar_getOffset(var);
-            void *pointer = (__bridge void *)superObject + offset;
-            uintptr_t ivarPointer = *(uintptr_t *)pointer;
-            uintptr_t objectPointer = (uintptr_t)object;
-            if (objectPointer == ivarPointer)
+            uintptr_t *pointer = (__bridge void *)superObject + offset;
+            if (*pointer == (uintptr_t)(__bridge void *)object)
             {
                 NSString *result = [NSString stringWithFormat:@"EQUAL_TO %@(%lx) %s %s", [superObject class], (uintptr_t)superObject, ivar_getName(var), type];
                 [resultArray addObject:result];
