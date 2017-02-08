@@ -1,4 +1,7 @@
-## OFCocoaTricks is a combination of objective-c runtime tools.  
+## OFCocoaTricks is a combination of objective-c runtime tools.  
+
+不定期更新运行时使用技巧，在微信公众号：iOS葵花宝典  
+![QRCode](https://raw.githubusercontent.com/OpenFibers/OFCocoaTricks/master/Resources/qrcode_wxmp.jpg)
 
 ## Install
 
