@@ -9,6 +9,15 @@
 #import "OFFindViewReferenceHelper.h"
 #import "OFFindInstanceIvarHelper.h"
 
+@implementation UIView (OFFindViewReferenceHelper)
+
+- (NSArray <NSString *> *)findReferenceInOtherObjects
+{
+    return [OFFindViewReferenceHelper findReferenceForView:self];
+}
+
+@end
+
 @implementation OFFindViewReferenceHelper
 
 + (NSArray <NSString *> *)findReferenceForView:(UIView *)view

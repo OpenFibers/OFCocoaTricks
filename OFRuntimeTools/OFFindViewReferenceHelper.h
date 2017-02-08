@@ -9,6 +9,12 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+@interface UIView (OFFindViewReferenceHelper)
+
+- (NSArray <NSString *> *)findReferenceInOtherObjects;
+
+@end
+
 @interface OFFindViewReferenceHelper : NSObject
 
 + (NSArray <NSString *> *)findReferenceForView:(UIView *)view;
