@@ -3,10 +3,12 @@
 不定期更新运行时使用技巧，在微信公众号：iOS葵花宝典  
 ![QRCode](https://raw.githubusercontent.com/OpenFibers/OFCocoaTricks/master/Resources/qrcode_wxmp.jpg)
 
-## Install
+## Install manually
+Just copy the `OFRuntimeTools` folder to your project.  
 
-You may add it to your project using pod:  
+## Install using Cocoapods
 
+You may add it to your project using pod:  
 ```
 pod 'OFCocoaTricks', :git=>'https://github.com/OpenFibers/OFCocoaTricks.git', :branch=>'master'
 ```
