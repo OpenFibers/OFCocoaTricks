@@ -34,7 +34,7 @@
             uintptr_t *pointer = (__bridge void *)superObject + offset;
             if (*pointer == (uintptr_t)(__bridge void *)object)
             {
-                NSString *result = [NSString stringWithFormat:@"EQUAL_TO %@(%lx) %s %s", [superObject class], (uintptr_t)superObject, ivar_getName(var), type];
+                NSString *result = [NSString stringWithFormat:@"EQUAL_TO %@(0x%lx) %s %s", [superObject class], (uintptr_t)superObject, ivar_getName(var), type];
                 [resultArray addObject:result];
             }
             else
@@ -45,12 +45,12 @@
                     UIView *viewValue = value;
                     if ([viewValue.subviews containsObject:(UIView *)object])
                     {
-                        NSString *result = [NSString stringWithFormat:@"SUBVIEW_OF %@(%lx) %s %s", [superObject class], (uintptr_t)superObject, ivar_getName(var), type];
+                        NSString *result = [NSString stringWithFormat:@"SUBVIEW_OF %@(0x%lx) %s %s", [superObject class], (uintptr_t)superObject, ivar_getName(var), type];
                         [resultArray addObject:result];
                     }
                     else if ([((UIView *)object) isDescendantOfView:viewValue])
                     {
-                        NSString *result = [NSString stringWithFormat:@"DESCENDANTVIEW_OF %@(%lx) %s %s", [superObject class], (uintptr_t)superObject, ivar_getName(var), type];
+                        NSString *result = [NSString stringWithFormat:@"DESCENDANTVIEW_OF %@(0x%lx) %s %s", [superObject class], (uintptr_t)superObject, ivar_getName(var), type];
                         [resultArray addObject:result];
                     }
                 }
@@ -64,7 +64,7 @@
                         {
                             if (element == object)
                             {
-                                NSString *result = [NSString stringWithFormat:@"VALUE_OF %@(%lx) %s %s", [superObject class], (uintptr_t)superObject, ivar_getName(var), type];
+                                NSString *result = [NSString stringWithFormat:@"VALUE_OF %@(0x%lx) %s %s", [superObject class], (uintptr_t)superObject, ivar_getName(var), type];
                                 [resultArray addObject:result];
                             }
                         }
