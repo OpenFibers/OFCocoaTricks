@@ -11,7 +11,7 @@
 
 @interface UIView (OFFindViewReferenceHelper)
 
-- (NSArray <NSString *> *)findReferenceInOtherObjects;
+- (NSArray <NSString *> *)referenceInOtherObjects;
 
 @end
 

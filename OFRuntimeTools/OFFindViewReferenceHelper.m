@@ -11,7 +11,7 @@
 
 @implementation UIView (OFFindViewReferenceHelper)
 
-- (NSArray <NSString *> *)findReferenceInOtherObjects
+- (NSArray <NSString *> *)referenceInOtherObjects
 {
     return [OFFindViewReferenceHelper findReferenceForView:self];
 }
