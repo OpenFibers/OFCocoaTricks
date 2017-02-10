@@ -13,7 +13,7 @@
 
 + (void)testForView:(UIView *)view
 {
-    NSArray *result = [view findReferenceInOtherObjects];
+    NSArray *result = [view referenceInOtherObjects];
     NSLog(@"%@", result);
 }
 
