@@ -7,7 +7,7 @@ Pod::Spec.new do |spec|
   spec.description      = "A combination of objective-c runtime tool."
 
   spec.author           = { "OpenFibers" => "openfibers@gmail.com" }
-  spec.source           = { :git => "https://github.com/OpenFibers/OFCocoaTricks.git", :branch => 'master'}
+  spec.source           = { :git => "https://github.com/OpenFibers/OFCocoaTricks.git", :tag => spec.version.to_s }
   spec.source_files  = "OFRuntimeTools/**/*.{h,m}"
   spec.frameworks = 'Foundation', 'UIKit'
 
