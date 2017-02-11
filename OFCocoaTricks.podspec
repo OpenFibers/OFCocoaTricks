@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name             = "OFCocoaTricks"
-  spec.version          = "0.0.1"
+  spec.version          = "0.0.2"
   spec.license          = { :type => 'MIT' }
   spec.homepage         = "https://github.com/OpenFibers/OFCocoaTricks"
   spec.summary          = "A combination of objective-c runtime tool."
