@@ -60,14 +60,14 @@
 
 @implementation OFFindInstanceIvarHelper
 
-+ (NSArray <NSString *> *)IvarNamesOfObject:(NSObject *)object inSuperObject:(NSObject *)superObject
++ (NSArray <OFFindInstanceIvarHelperRelationshipObject *> *)IvarNamesOfObject:(NSObject *)object inSuperObject:(NSObject *)superObject
 {
     if (!superObject)
     {
         return nil;
     }
     
-    NSMutableArray *resultArray = [NSMutableArray array];
+    NSMutableArray <OFFindInstanceIvarHelperRelationshipObject *> *resultArray = [NSMutableArray array];
     
     unsigned int count;
     Ivar *vars = class_copyIvarList([superObject class], &count);
@@ -85,8 +85,14 @@
         uintptr_t *pointer = (__bridge void *)superObject + offset;
         if (*pointer == (uintptr_t)(__bridge void *)object)
         {
-            NSString *result = [NSString stringWithFormat:@"EQUAL_TO %@(0x%lx) %s %s", [superObject class], (uintptr_t)superObject, ivar_getName(var), type];
-            [resultArray addObject:result];
+            OFFindInstanceIvarHelperRelationshipObject *r;
+            r = [OFFindInstanceIvarHelperRelationshipObject objectWithRelationShip:@"EQUAL_TO"
+                                                                  superObjectClass:[superObject class]
+                                                                superObjectPointer:(uintptr_t)superObject
+                                                                          ivarName:[NSString stringWithUTF8String:ivar_getName(var)]
+                                                                          ivarType:[NSString stringWithUTF8String:type]
+                                                               ivarDeclaredInClass:[superObject class]];
+            [resultArray addObject:r];
             continue;
         }
         
@@ -96,13 +102,25 @@
             UIView *viewValue = value;
             if ([viewValue.subviews containsObject:(UIView *)object])
             {
-                NSString *result = [NSString stringWithFormat:@"SUBVIEW_OF %@(0x%lx) %s %s", [superObject class], (uintptr_t)superObject, ivar_getName(var), type];
-                [resultArray addObject:result];
+                OFFindInstanceIvarHelperRelationshipObject *r;
+                r = [OFFindInstanceIvarHelperRelationshipObject objectWithRelationShip:@"SUBVIEW_OF"
+                                                                      superObjectClass:[superObject class]
+                                                                    superObjectPointer:(uintptr_t)superObject
+                                                                              ivarName:[NSString stringWithUTF8String:ivar_getName(var)]
+                                                                              ivarType:[NSString stringWithUTF8String:type]
+                                                                   ivarDeclaredInClass:[superObject class]];
+                [resultArray addObject:r];
             }
             else if ([((UIView *)object) isDescendantOfView:viewValue])
             {
-                NSString *result = [NSString stringWithFormat:@"DESCENDANTVIEW_OF %@(0x%lx) %s %s", [superObject class], (uintptr_t)superObject, ivar_getName(var), type];
-                [resultArray addObject:result];
+                OFFindInstanceIvarHelperRelationshipObject *r;
+                r = [OFFindInstanceIvarHelperRelationshipObject objectWithRelationShip:@"DESCENDANTVIEW_OF"
+                                                                      superObjectClass:[superObject class]
+                                                                    superObjectPointer:(uintptr_t)superObject
+                                                                              ivarName:[NSString stringWithUTF8String:ivar_getName(var)]
+                                                                              ivarType:[NSString stringWithUTF8String:type]
+                                                                   ivarDeclaredInClass:[superObject class]];
+                [resultArray addObject:r];
             }
             continue;
         }
@@ -117,8 +135,14 @@
                 {
                     if (element == object)
                     {
-                        NSString *result = [NSString stringWithFormat:@"VALUE_OF %@(0x%lx) %s %s", [superObject class], (uintptr_t)superObject, ivar_getName(var), type];
-                        [resultArray addObject:result];
+                        OFFindInstanceIvarHelperRelationshipObject *r;
+                        r = [OFFindInstanceIvarHelperRelationshipObject objectWithRelationShip:@"VALUE_OF"
+                                                                              superObjectClass:[superObject class]
+                                                                            superObjectPointer:(uintptr_t)superObject
+                                                                                      ivarName:[NSString stringWithUTF8String:ivar_getName(var)]
+                                                                                      ivarType:[NSString stringWithUTF8String:type]
+                                                                           ivarDeclaredInClass:[superObject class]];
+                        [resultArray addObject:r];
                     }
                 }
             }
@@ -134,8 +158,14 @@
                 {
                     if (element == object)
                     {
-                        NSString *result = [NSString stringWithFormat:@"KEY_OF %@(%lx) %s %s", [superObject class], (uintptr_t)superObject, ivar_getName(var), type];
-                        [resultArray addObject:result];
+                        OFFindInstanceIvarHelperRelationshipObject *r;
+                        r = [OFFindInstanceIvarHelperRelationshipObject objectWithRelationShip:@"KEY_OF"
+                                                                              superObjectClass:[superObject class]
+                                                                            superObjectPointer:(uintptr_t)superObject
+                                                                                      ivarName:[NSString stringWithUTF8String:ivar_getName(var)]
+                                                                                      ivarType:[NSString stringWithUTF8String:type]
+                                                                           ivarDeclaredInClass:[superObject class]];
+                        [resultArray addObject:r];
                     }
                 }
             }
