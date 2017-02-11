@@ -33,7 +33,7 @@
 - (void)test
 {
 //    [OFGetSubclassesTester test];
-//    [OFFindInstanceIvarTester test];
+    [OFFindInstanceIvarTester test];
     [OFFindViewReferenceTester testForView:self.button];
 }
 

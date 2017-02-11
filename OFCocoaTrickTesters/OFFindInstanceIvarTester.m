@@ -9,6 +9,23 @@
 #import "OFFindInstanceIvarTester.h"
 #import "OFFindInstanceIvarHelper.h"
 
+@interface A : NSObject
+{
+    NSObject *_a;
+}
+@end
+@implementation A
+@end
+
+@interface B : A
+{
+    NSObject *_b;
+}
+@end
+@implementation B
+@end
+
+
 @interface OFFindInstanceIvarTester ()
 @property (nonatomic, strong) NSString *property;
 @end
@@ -24,6 +41,9 @@
 
 + (void)test
 {
+    B *b = [[B alloc] init];
+    NSLog(@"%@", [OFFindInstanceIvarHelper IvarNamesOfObject:nil inSuperObject:b]);
+    
     OFFindInstanceIvarTester *tester = [[OFFindInstanceIvarTester alloc] init];
     NSString *a = [[NSString alloc] init];
     tester.property = a;
@@ -32,8 +52,8 @@
     tester->_array = @[a];
     tester->_dictionaryA = @{a : @"value"};
     tester->_dictionaryB = @{@"key" : a};
-    NSLog(@"%@" ,[OFFindInstanceIvarHelper IvarNamesOfObject:a inSuperObject:tester]);
-    NSLog(@"%@" ,[OFFindInstanceIvarHelper IvarNamesOfObject:nil inSuperObject:tester]);
+    NSLog(@"%@", [OFFindInstanceIvarHelper IvarNamesOfObject:a inSuperObject:tester]);
+    NSLog(@"%@", [OFFindInstanceIvarHelper IvarNamesOfObject:nil inSuperObject:tester]);
 }
 
 @end
