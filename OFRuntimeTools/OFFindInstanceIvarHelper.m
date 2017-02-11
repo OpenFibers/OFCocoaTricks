@@ -10,6 +10,47 @@
 #import "OFRuntimeUltilities.h"
 #import <objc/runtime.h>
 
+@interface OFFindInstanceIvarHelperRelationshipObject : NSObject
+@property (nonatomic, strong) NSString *relationShip;
+@property (nonatomic, strong) Class superObjectClass;
+@property (nonatomic, assign) uintptr_t superObjectPointer;
+@property (nonatomic, strong) NSString *ivarName;
+@property (nonatomic, strong) NSString *ivarType;
+@property (nonatomic, strong) Class ivarDeclaredInClass;
+@end
+
+@implementation OFFindInstanceIvarHelperRelationshipObject
+
++ (instancetype)objectWithRelationShip:(NSString *)relationShip superObjectClass:(Class)superObjectClass superObjectPointer:(uintptr_t)superObjectPointer ivarName:(NSString *)ivarName ivarType:(NSString *)ivarType ivarDeclaredInClass:(Class)ivarDeclaredInClass
+{
+    OFFindInstanceIvarHelperRelationshipObject *object = [[OFFindInstanceIvarHelperRelationshipObject alloc] init];
+    object.relationShip = relationShip;
+    object.superObjectClass = superObjectClass;
+    object.superObjectPointer = superObjectPointer;
+    object.ivarName = ivarName;
+    object.ivarType = ivarType;
+    object.ivarDeclaredInClass = ivarDeclaredInClass;
+    return object;
+}
+
+- (NSString *)description
+{
+    NSString *result = [NSString stringWithFormat:@"%@ %@(0x%lx) %@ %@",
+                        self.relationShip,
+                        self.superObjectClass,
+                        self.superObjectPointer,
+                        self.ivarName,
+                        self.ivarType];
+    if (self.ivarDeclaredInClass && self.ivarDeclaredInClass != self.superObjectClass)
+    {
+        NSString *appendingResult = [NSString stringWithFormat:@", declared in %@", self.ivarDeclaredInClass];
+        result = [result stringByAppendingString:appendingResult];
+    }
+    return result;
+}
+
+@end
+
 @implementation OFFindInstanceIvarHelper
 
 + (NSArray <NSString *> *)IvarNamesOfObject:(NSObject *)object inSuperObject:(NSObject *)superObject
