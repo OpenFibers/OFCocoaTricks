@@ -10,18 +10,25 @@
 #import "OFRuntimeUltilities.h"
 #import <objc/runtime.h>
 
-@interface OFFindInstanceIvarHelperRelationshipObject : NSObject
-@property (nonatomic, strong) NSString *relationShip;
-@property (nonatomic, strong) Class superObjectClass;
-@property (nonatomic, assign) uintptr_t superObjectPointer;
-@property (nonatomic, strong) NSString *ivarName;
-@property (nonatomic, strong) NSString *ivarType;
-@property (nonatomic, strong) Class ivarDeclaredInClass;
+@interface OFFindInstanceIvarHelperRelationshipObject()
+
++ (instancetype)objectWithRelationShip:(NSString *)relationShip
+                      superObjectClass:(Class)superObjectClass
+                    superObjectPointer:(uintptr_t)superObjectPointer
+                              ivarName:(NSString *)ivarName
+                              ivarType:(NSString *)ivarType
+                   ivarDeclaredInClass:(Class)ivarDeclaredInClass;
+
 @end
 
 @implementation OFFindInstanceIvarHelperRelationshipObject
 
-+ (instancetype)objectWithRelationShip:(NSString *)relationShip superObjectClass:(Class)superObjectClass superObjectPointer:(uintptr_t)superObjectPointer ivarName:(NSString *)ivarName ivarType:(NSString *)ivarType ivarDeclaredInClass:(Class)ivarDeclaredInClass
++ (instancetype)objectWithRelationShip:(NSString *)relationShip
+                      superObjectClass:(Class)superObjectClass
+                    superObjectPointer:(uintptr_t)superObjectPointer
+                              ivarName:(NSString *)ivarName
+                              ivarType:(NSString *)ivarType
+                   ivarDeclaredInClass:(Class)ivarDeclaredInClass
 {
     OFFindInstanceIvarHelperRelationshipObject *object = [[OFFindInstanceIvarHelperRelationshipObject alloc] init];
     object.relationShip = relationShip;
