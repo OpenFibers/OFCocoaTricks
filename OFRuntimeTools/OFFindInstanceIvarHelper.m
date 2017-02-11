@@ -76,62 +76,66 @@
         Ivar var = vars[i];
         const char *type = ivar_getTypeEncoding(var);
         
-        if (type[0] == @encode(id)[0])
+        if (type[0] != @encode(id)[0])
         {
-            ptrdiff_t offset = ivar_getOffset(var);
-            uintptr_t *pointer = (__bridge void *)superObject + offset;
-            if (*pointer == (uintptr_t)(__bridge void *)object)
+            continue;
+        }
+        
+        ptrdiff_t offset = ivar_getOffset(var);
+        uintptr_t *pointer = (__bridge void *)superObject + offset;
+        if (*pointer == (uintptr_t)(__bridge void *)object)
+        {
+            NSString *result = [NSString stringWithFormat:@"EQUAL_TO %@(0x%lx) %s %s", [superObject class], (uintptr_t)superObject, ivar_getName(var), type];
+            [resultArray addObject:result];
+            continue;
+        }
+        
+        id value = [OFRuntimeUltilities valueForIvar:var onObject:superObject];
+        if ([object isKindOfClass:[UIView class]] && [value isKindOfClass:[UIView class]])
+        {
+            UIView *viewValue = value;
+            if ([viewValue.subviews containsObject:(UIView *)object])
             {
-                NSString *result = [NSString stringWithFormat:@"EQUAL_TO %@(0x%lx) %s %s", [superObject class], (uintptr_t)superObject, ivar_getName(var), type];
+                NSString *result = [NSString stringWithFormat:@"SUBVIEW_OF %@(0x%lx) %s %s", [superObject class], (uintptr_t)superObject, ivar_getName(var), type];
                 [resultArray addObject:result];
             }
-            else
+            else if ([((UIView *)object) isDescendantOfView:viewValue])
             {
-                id value = [OFRuntimeUltilities valueForIvar:var onObject:superObject];
-                if ([object isKindOfClass:[UIView class]] && [value isKindOfClass:[UIView class]])
+                NSString *result = [NSString stringWithFormat:@"DESCENDANTVIEW_OF %@(0x%lx) %s %s", [superObject class], (uintptr_t)superObject, ivar_getName(var), type];
+                [resultArray addObject:result];
+            }
+            continue;
+        }
+        
+        if ([value respondsToSelector:@selector(objectEnumerator)])
+        {
+            NSEnumerator *enumerator = [value objectEnumerator];
+            if ([enumerator isKindOfClass:[NSEnumerator class]])
+            {
+                id element = nil;
+                while ((element = [enumerator nextObject]))
                 {
-                    UIView *viewValue = value;
-                    if ([viewValue.subviews containsObject:(UIView *)object])
+                    if (element == object)
                     {
-                        NSString *result = [NSString stringWithFormat:@"SUBVIEW_OF %@(0x%lx) %s %s", [superObject class], (uintptr_t)superObject, ivar_getName(var), type];
-                        [resultArray addObject:result];
-                    }
-                    else if ([((UIView *)object) isDescendantOfView:viewValue])
-                    {
-                        NSString *result = [NSString stringWithFormat:@"DESCENDANTVIEW_OF %@(0x%lx) %s %s", [superObject class], (uintptr_t)superObject, ivar_getName(var), type];
+                        NSString *result = [NSString stringWithFormat:@"VALUE_OF %@(0x%lx) %s %s", [superObject class], (uintptr_t)superObject, ivar_getName(var), type];
                         [resultArray addObject:result];
                     }
                 }
-                if ([value respondsToSelector:@selector(objectEnumerator)])
+            }
+        }
+        
+        if ([value respondsToSelector:@selector(keyEnumerator)])
+        {
+            NSEnumerator *enumerator = [value keyEnumerator];
+            if ([enumerator isKindOfClass:[NSEnumerator class]])
+            {
+                id element = nil;
+                while ((element = [enumerator nextObject]))
                 {
-                    NSEnumerator *enumerator = [value objectEnumerator];
-                    if ([enumerator isKindOfClass:[NSEnumerator class]])
+                    if (element == object)
                     {
-                        id element = nil;
-                        while ((element = [enumerator nextObject]))
-                        {
-                            if (element == object)
-                            {
-                                NSString *result = [NSString stringWithFormat:@"VALUE_OF %@(0x%lx) %s %s", [superObject class], (uintptr_t)superObject, ivar_getName(var), type];
-                                [resultArray addObject:result];
-                            }
-                        }
-                    }
-                }
-                if ([value respondsToSelector:@selector(keyEnumerator)])
-                {
-                    NSEnumerator *enumerator = [value keyEnumerator];
-                    if ([enumerator isKindOfClass:[NSEnumerator class]])
-                    {
-                        id element = nil;
-                        while ((element = [enumerator nextObject]))
-                        {
-                            if (element == object)
-                            {
-                                NSString *result = [NSString stringWithFormat:@"KEY_OF %@(%lx) %s %s", [superObject class], (uintptr_t)superObject, ivar_getName(var), type];
-                                [resultArray addObject:result];
-                            }
-                        }
+                        NSString *result = [NSString stringWithFormat:@"KEY_OF %@(%lx) %s %s", [superObject class], (uintptr_t)superObject, ivar_getName(var), type];
+                        [resultArray addObject:result];
                     }
                 }
             }
