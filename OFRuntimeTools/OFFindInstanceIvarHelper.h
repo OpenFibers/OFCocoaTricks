@@ -16,6 +16,7 @@
 @property (nonatomic, strong) NSString *ivarName;
 @property (nonatomic, strong) NSString *ivarType;
 @property (nonatomic, strong) Class ivarDeclaredInClass;
+@property (nonatomic, strong) NSArray <OFFindInstanceIvarHelperRelationshipObject *> *subrelationships;
 @end
 
 @interface OFFindInstanceIvarHelper : NSObject

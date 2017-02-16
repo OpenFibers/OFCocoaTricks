@@ -40,6 +40,11 @@
     return object;
 }
 
+- (void)setSubrelationships:(NSArray<OFFindInstanceIvarHelperRelationshipObject *> *)subrelationships
+{
+    _subrelationships = subrelationships;
+}
+
 - (NSString *)description
 {
     NSString *result = [NSString stringWithFormat:@"%@ %@(0x%lx) %@ %@",
@@ -52,6 +57,13 @@
     {
         NSString *appendingResult = [NSString stringWithFormat:@", declared in %@", self.ivarDeclaredInClass];
         result = [result stringByAppendingString:appendingResult];
+    }
+    if (self.subrelationships)
+    {
+        NSMutableString *copiedResult = [result mutableCopy];
+        [copiedResult appendString:@"\nsubrelationships:\n"];
+        [copiedResult appendString:[self.subrelationships description]];
+        result = [NSString stringWithString:copiedResult];
     }
     return result;
 }
@@ -172,6 +184,20 @@
                         }
                     }
                 }
+            }
+            
+            NSArray *relationShips = [OFFindInstanceIvarHelper IvarNamesOfObject:object inSuperObject:value];
+            if (relationShips.count)
+            {
+                OFFindInstanceIvarHelperRelationshipObject *r;
+                r = [OFFindInstanceIvarHelperRelationshipObject objectWithRelationShip:@"SUB_RELATIONSHIP_IN"
+                                                                      superObjectClass:[superObject class]
+                                                                    superObjectPointer:(uintptr_t)superObject
+                                                                              ivarName:[NSString stringWithUTF8String:ivar_getName(var)]
+                                                                              ivarType:[NSString stringWithUTF8String:type]
+                                                                   ivarDeclaredInClass:tempClass];
+                r.subrelationships = relationShips;
+                [resultArray addObject:r];
             }
         }
         
