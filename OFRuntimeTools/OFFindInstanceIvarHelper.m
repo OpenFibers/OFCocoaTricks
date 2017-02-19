@@ -72,7 +72,12 @@
 
 @implementation OFFindInstanceIvarHelper
 
-+ (NSArray <OFFindInstanceIvarHelperRelationshipObject *> *)IvarNamesOfObject:(NSObject *)object inSuperObject:(NSObject *)superObject
++ (NSArray <OFFindInstanceIvarHelperRelationshipObject *> *)IvarRefsOfObject:(NSObject *)object inSuperObject:(NSObject *)superObject
+{
+    return [self IvarRefsOfObject:object inSuperObject:superObject currentFindingPath:nil];
+}
+
++ (NSArray <OFFindInstanceIvarHelperRelationshipObject *> *)IvarRefsOfObject:(NSObject *)object inSuperObject:(NSObject *)superObject currentFindingPath:(NSArray *)findingPath
 {
     if (!superObject)
     {
@@ -186,7 +191,7 @@
                 }
             }
             
-            NSArray *relationShips = [OFFindInstanceIvarHelper IvarNamesOfObject:object inSuperObject:value];
+            NSArray *relationShips = [OFFindInstanceIvarHelper IvarRefsOfObject:object inSuperObject:value];
             if (relationShips.count)
             {
                 OFFindInstanceIvarHelperRelationshipObject *r;

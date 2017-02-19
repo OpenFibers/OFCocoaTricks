@@ -21,6 +21,6 @@
 
 @interface OFFindInstanceIvarHelper : NSObject
 
-+ (NSArray <OFFindInstanceIvarHelperRelationshipObject *> *)IvarNamesOfObject:(NSObject *)object inSuperObject:(NSObject *)superObject;
++ (NSArray <OFFindInstanceIvarHelperRelationshipObject *> *)IvarRefsOfObject:(NSObject *)object inSuperObject:(NSObject *)superObject;
 
 @end

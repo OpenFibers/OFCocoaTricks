@@ -27,7 +27,7 @@
     UIResponder *responder = view;
     while ((responder = [responder nextResponder]))
     {
-        NSArray *singleResult = [OFFindInstanceIvarHelper IvarNamesOfObject:view inSuperObject:responder];
+        NSArray *singleResult = [OFFindInstanceIvarHelper IvarRefsOfObject:view inSuperObject:responder];
         if (singleResult)
         {
             [result addObjectsFromArray:singleResult];

@@ -42,7 +42,7 @@
 + (void)test
 {
     B *b = [[B alloc] init];
-    NSLog(@"%@", [OFFindInstanceIvarHelper IvarNamesOfObject:nil inSuperObject:b]);
+    NSLog(@"%@", [OFFindInstanceIvarHelper IvarRefsOfObject:nil inSuperObject:b]);
     
     OFFindInstanceIvarTester *tester = [[OFFindInstanceIvarTester alloc] init];
     NSString *a = [[NSString alloc] init];
@@ -52,8 +52,8 @@
     tester->_array = @[a];
     tester->_dictionaryA = @{a : @"value"};
     tester->_dictionaryB = @{@"key" : a};
-    NSLog(@"%@", [OFFindInstanceIvarHelper IvarNamesOfObject:a inSuperObject:tester]);
-    NSLog(@"%@", [OFFindInstanceIvarHelper IvarNamesOfObject:nil inSuperObject:tester]);
+    NSLog(@"%@", [OFFindInstanceIvarHelper IvarRefsOfObject:a inSuperObject:tester]);
+    NSLog(@"%@", [OFFindInstanceIvarHelper IvarRefsOfObject:nil inSuperObject:tester]);
 }
 
 @end
