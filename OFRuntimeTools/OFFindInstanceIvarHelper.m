@@ -77,17 +77,19 @@
     return [self IvarRefsOfObject:object inSuperObject:superObject currentFindingPath:nil];
 }
 
-+ (NSArray <OFFindInstanceIvarHelperRelationshipObject *> *)IvarRefsOfObject:(NSObject *)object inSuperObject:(NSObject *)superObject currentFindingPath:(NSArray *)findingPath
++ (NSArray <OFFindInstanceIvarHelperRelationshipObject *> *)IvarRefsOfObject:(NSObject *)object inSuperObject:(NSObject *)superObject currentFindingPath:(NSArray *)currentFindingPath
 {
     if (!superObject)
     {
         return nil;
     }
     
-    if ([findingPath containsObject:[NSValue valueWithPointer:(void *)superObject]])
+    if ([currentFindingPath containsObject:[NSValue valueWithPointer:(void *)superObject]])
     {
         return nil;
     }
+    
+    NSArray *nextFindingPath = [(currentFindingPath ?: @[]) arrayByAddingObject:[NSValue valueWithPointer:(void *)superObject]];
     
     NSMutableArray <OFFindInstanceIvarHelperRelationshipObject *> *resultArray = [NSMutableArray array];
     
@@ -150,53 +152,39 @@
                 continue;
             }
             
-            if ([value respondsToSelector:@selector(objectEnumerator)])
+            if ([value respondsToSelector:@selector(enumerateObjectsUsingBlock:)])
             {
-                NSEnumerator *enumerator = [value objectEnumerator];
-                if ([enumerator isKindOfClass:[NSEnumerator class]])
-                {
-                    id element = nil;
-                    while ((element = [enumerator nextObject]))
+                [value enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    if (obj == object)
                     {
-                        if (element == object)
+                        OFFindInstanceIvarHelperRelationshipObject *r;
+                        r = [OFFindInstanceIvarHelperRelationshipObject objectWithRelationShip:@"VALUE_OF"
+                                                                              superObjectClass:[superObject class]
+                                                                            superObjectPointer:(uintptr_t)superObject
+                                                                                      ivarName:[NSString stringWithUTF8String:ivar_getName(var)]
+                                                                                      ivarType:[NSString stringWithUTF8String:type]
+                                                                           ivarDeclaredInClass:tempClass];
+                        [resultArray addObject:r];
+                    }
+                    else
+                    {
+                        NSArray *relationShips = [OFFindInstanceIvarHelper IvarRefsOfObject:object inSuperObject:value currentFindingPath:nextFindingPath];
+                        if (relationShips.count)
                         {
                             OFFindInstanceIvarHelperRelationshipObject *r;
-                            r = [OFFindInstanceIvarHelperRelationshipObject objectWithRelationShip:@"VALUE_OF"
+                            r = [OFFindInstanceIvarHelperRelationshipObject objectWithRelationShip:@"SUB_RELATIONSHIP_IN"
                                                                                   superObjectClass:[superObject class]
                                                                                 superObjectPointer:(uintptr_t)superObject
                                                                                           ivarName:[NSString stringWithUTF8String:ivar_getName(var)]
                                                                                           ivarType:[NSString stringWithUTF8String:type]
                                                                                ivarDeclaredInClass:tempClass];
+                            r.subrelationships = relationShips;
                             [resultArray addObject:r];
                         }
                     }
-                }
+                }];
             }
             
-            if ([value respondsToSelector:@selector(keyEnumerator)])
-            {
-                NSEnumerator *enumerator = [value keyEnumerator];
-                if ([enumerator isKindOfClass:[NSEnumerator class]])
-                {
-                    id element = nil;
-                    while ((element = [enumerator nextObject]))
-                    {
-                        if (element == object)
-                        {
-                            OFFindInstanceIvarHelperRelationshipObject *r;
-                            r = [OFFindInstanceIvarHelperRelationshipObject objectWithRelationShip:@"KEY_OF"
-                                                                                  superObjectClass:[superObject class]
-                                                                                superObjectPointer:(uintptr_t)superObject
-                                                                                          ivarName:[NSString stringWithUTF8String:ivar_getName(var)]
-                                                                                          ivarType:[NSString stringWithUTF8String:type]
-                                                                               ivarDeclaredInClass:tempClass];
-                            [resultArray addObject:r];
-                        }
-                    }
-                }
-            }
-            
-            NSArray *nextFindingPath = [(findingPath ?: @[]) arrayByAddingObject:[NSValue valueWithPointer:(void *)superObject]];
             NSArray *relationShips = [OFFindInstanceIvarHelper IvarRefsOfObject:object inSuperObject:value currentFindingPath:nextFindingPath];
             if (relationShips.count)
             {
