@@ -84,6 +84,11 @@
         return nil;
     }
     
+    if ([findingPath containsObject:[NSValue valueWithPointer:(void *)superObject]])
+    {
+        return nil;
+    }
+    
     NSMutableArray <OFFindInstanceIvarHelperRelationshipObject *> *resultArray = [NSMutableArray array];
     
     Class tempClass = [superObject class];
@@ -191,7 +196,8 @@
                 }
             }
             
-            NSArray *relationShips = [OFFindInstanceIvarHelper IvarRefsOfObject:object inSuperObject:value];
+            NSArray *nextFindingPath = [(findingPath ?: @[]) arrayByAddingObject:[NSValue valueWithPointer:(void *)superObject]];
+            NSArray *relationShips = [OFFindInstanceIvarHelper IvarRefsOfObject:object inSuperObject:value currentFindingPath:nextFindingPath];
             if (relationShips.count)
             {
                 OFFindInstanceIvarHelperRelationshipObject *r;
