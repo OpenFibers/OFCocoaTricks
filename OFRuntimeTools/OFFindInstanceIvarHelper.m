@@ -153,6 +153,69 @@
                 continue;
             }
             
+            if ([value respondsToSelector:@selector(enumerateKeysAndObjectsUsingBlock:)])
+            {
+                [value enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+                    BOOL keyOrObjSameAsObject = NO;
+                    if (key == object)
+                    {
+                        OFFindInstanceIvarHelperRelationshipObject *r;
+                        r = [OFFindInstanceIvarHelperRelationshipObject objectWithRelationShip:@"KEY_OF"
+                                                                              superObjectClass:[superObject class]
+                                                                            superObjectPointer:(uintptr_t)superObject
+                                                                                      ivarName:[NSString stringWithUTF8String:ivar_getName(var)]
+                                                                                      ivarType:[NSString stringWithUTF8String:type]
+                                                                           ivarDeclaredInClass:tempClass];
+                        [resultArray addObject:r];
+                        keyOrObjSameAsObject = YES;
+                    }
+                    if (obj == object)
+                    {
+                        OFFindInstanceIvarHelperRelationshipObject *r;
+                        r = [OFFindInstanceIvarHelperRelationshipObject objectWithRelationShip:@"VALUE_OF"
+                                                                              superObjectClass:[superObject class]
+                                                                            superObjectPointer:(uintptr_t)superObject
+                                                                                      ivarName:[NSString stringWithUTF8String:ivar_getName(var)]
+                                                                                      ivarType:[NSString stringWithUTF8String:type]
+                                                                           ivarDeclaredInClass:tempClass];
+                        [resultArray addObject:r];
+                        keyOrObjSameAsObject = YES;
+                    }
+                    
+                    if(!keyOrObjSameAsObject)
+                    {
+                        NSArray *objRelationShips = [OFFindInstanceIvarHelper IvarRefsOfObject:object inSuperObject:obj currentFindingPath:nextFindingPath];
+                        if (objRelationShips.count)
+                        {
+                            OFFindInstanceIvarHelperRelationshipObject *r;
+                            r = [OFFindInstanceIvarHelperRelationshipObject objectWithRelationShip:@"SUB_RELATIONSHIP_IN"
+                                                                                  superObjectClass:[superObject class]
+                                                                                superObjectPointer:(uintptr_t)superObject
+                                                                                          ivarName:[NSString stringWithUTF8String:ivar_getName(var)]
+                                                                                          ivarType:[NSString stringWithUTF8String:type]
+                                                                               ivarDeclaredInClass:tempClass];
+                            r.subrelationships = objRelationShips;
+                            [resultArray addObject:r];
+                        }
+                        
+                        NSArray *keyRelationShips = [OFFindInstanceIvarHelper IvarRefsOfObject:object inSuperObject:key currentFindingPath:nextFindingPath];
+                        if (keyRelationShips.count)
+                        {
+                            OFFindInstanceIvarHelperRelationshipObject *r;
+                            r = [OFFindInstanceIvarHelperRelationshipObject objectWithRelationShip:@"SUB_RELATIONSHIP_IN"
+                                                                                  superObjectClass:[superObject class]
+                                                                                superObjectPointer:(uintptr_t)superObject
+                                                                                          ivarName:[NSString stringWithUTF8String:ivar_getName(var)]
+                                                                                          ivarType:[NSString stringWithUTF8String:type]
+                                                                               ivarDeclaredInClass:tempClass];
+                            r.subrelationships = keyRelationShips;
+                            [resultArray addObject:r];
+                        }
+                    }
+                }];
+                continue;
+            }
+            
             if ([value respondsToSelector:@selector(enumerateObjectsUsingBlock:)])
             {
                 [value enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -169,7 +232,7 @@
                     }
                     else
                     {
-                        NSArray *relationShips = [OFFindInstanceIvarHelper IvarRefsOfObject:object inSuperObject:value currentFindingPath:nextFindingPath];
+                        NSArray *relationShips = [OFFindInstanceIvarHelper IvarRefsOfObject:object inSuperObject:obj currentFindingPath:nextFindingPath];
                         if (relationShips.count)
                         {
                             OFFindInstanceIvarHelperRelationshipObject *r;
@@ -184,6 +247,7 @@
                         }
                     }
                 }];
+                continue;
             }
             
             NSArray *relationShips = [OFFindInstanceIvarHelper IvarRefsOfObject:object inSuperObject:value currentFindingPath:nextFindingPath];
