@@ -89,6 +89,7 @@
         return nil;
     }
     
+    //record finding path, to void finding cycle
     NSArray *nextFindingPath = [(currentFindingPath ?: @[]) arrayByAddingObject:[NSValue valueWithPointer:(void *)superObject]];
     
     NSMutableArray <OFFindInstanceIvarHelperRelationshipObject *> *resultArray = [NSMutableArray array];
@@ -141,7 +142,7 @@
                 else if ([((UIView *)object) isDescendantOfView:viewValue])
                 {
                     OFFindInstanceIvarHelperRelationshipObject *r;
-                    r = [OFFindInstanceIvarHelperRelationshipObject objectWithRelationShip:@"DESCENDANTVIEW_OF"
+                    r = [OFFindInstanceIvarHelperRelationshipObject objectWithRelationShip:@"DESCENDANT_VIEW_OF"
                                                                           superObjectClass:[superObject class]
                                                                         superObjectPointer:(uintptr_t)superObject
                                                                                   ivarName:[NSString stringWithUTF8String:ivar_getName(var)]
